@@ -56,7 +56,7 @@ def displayBoard():
     
     print("GAME BOARD\n")
     for x in range(3):
-        print(board[x][0] + "  " + board[x][1] + "  " + board[x][2]) #Shows Board 
+        print(board[x][0] + "  " + board[x][1] + "  " + board[x][2]) #Shows Board by displaying each element
         print("\n")
   
 def checkWinner():
@@ -96,7 +96,7 @@ def checkWinner():
         winner = 2
         return winner
     
-def checkFilled():
+def checkFilled(): #checks every board position to see if at least 1 is empty
     for x in range(3):
         for y in range(3):
             if board[x][y] == "□":
@@ -135,8 +135,8 @@ def game():
             print("Player 2 Go\n")
         displayBoard()    
         filled = checkFilled()
-        if filled:
-            gameOver = input("Board is full! Press 0 to restart the game, or 1 to reset everything\n")
+        if filled:                                          #prompts to reset after a draw
+            gameOver = input("DRAW! Press 0 to restart the game, or 1 to reset everything\n")
             while gameOver != "0" and gameOver != "1":
                 gameOver =  input("Press 0 to restart the game, or 1 to reset everything\n")
             if gameOver == "0":
@@ -145,7 +145,7 @@ def game():
             elif gameOver == "1":
                 print("Resetting Everything\n")
                 main()
-        while validSpace == False:
+        while validSpace == False:                         #checks if what the player selects is a valid space
             row = input("Player " + str(currentTurn) + ", choose a row from 1 to 3\n")
             while row != "1" and row != "2" and row != "3":
                 row = input("Invalid input, input either 1, 2, or 3\n")
