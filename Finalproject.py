@@ -15,7 +15,14 @@ winner = 0
 isWinner = False
 
 def main():
-    
+    global player1Score
+    global player2Score
+    global winner
+    global isWinner
+    winner = 0
+    isWinner = False
+    player1Score = 0
+    player2Score = 0
     start = input("Enter 0 to start playing\n")
     while start != "0":
         start =  input("Enter 0 to start playing\n")
@@ -33,6 +40,8 @@ def initialize():
    board = [["□","□","□"], #Initialize Board
             ["□","□","□"],
             ["□","□","□"]]
+   print("Player 1 (X) Score: " + str(player1Score) + "\n")
+   print("Player 2 (O) Score: " + str(player2Score) + "\n")
    a = random.randint(0,1)  #Randomly choose first player
    if a == 1:
        currentTurn = 1
@@ -41,7 +50,8 @@ def initialize():
        currentTurn = 2
        print("Player 2 Will go first")
    game()
-       
+
+    
 def displayBoard():
     
     print("GAME BOARD\n")
@@ -86,6 +96,13 @@ def checkWinner():
         winner = 2
         return winner
     
+def checkFilled():
+    for x in range(3):
+        for y in range(3):
+            if board[x][y] == "□":
+                return False
+    return True
+    
 def game():
     global currentTurn
     global player1Score
@@ -102,7 +119,7 @@ def game():
             if winner == 1:
                 player1Score += 1
             elif winner == 2:
-                player2Score += 2
+                player2Score += 1
             reset = input("Press 0 to restart the game, or 1 to reset everything\n")
             while reset != "0" and reset != "1":
                 reset =  input("Press 0 to restart the game, or 1 to reset everything\n")
@@ -110,12 +127,24 @@ def game():
                 print("Resetting Game Board\n")
                 initialize()
             elif reset == "1":
-                reset()
+                print("Resetting Everything\n")
+                main()
         if currentTurn == 1:
             print("Player 1 Go\n")
         else:
             print("Player 2 Go\n")
         displayBoard()    
+        filled = checkFilled()
+        if filled:
+            gameOver = input("Board is full! Press 0 to restart the game, or 1 to reset everything\n")
+            while gameOver != "0" and gameOver != "1":
+                gameOver =  input("Press 0 to restart the game, or 1 to reset everything\n")
+            if gameOver == "0":
+                print("Resetting Game Board\n")
+                initialize()
+            elif gameOver == "1":
+                print("Resetting Everything\n")
+                main()
         while validSpace == False:
             row = input("Player " + str(currentTurn) + ", choose a row from 1 to 3\n")
             while row != "1" and row != "2" and row != "3":
