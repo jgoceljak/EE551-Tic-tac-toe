@@ -31,7 +31,7 @@ def main():
     if start == "1":
         initializeBig();
     
-        
+#this function initializes a 3x3 game board and chooses a random player to start first
 def initialize():
    global board
    global currentTurn
@@ -51,7 +51,10 @@ def initialize():
    else:
        currentTurn = 2
        print("Player 2 Will go first")
-   game()
+   game() #initiates the game loop
+   
+
+#this function initializes a 5x5 game board and chooses a random player to start first
    
 def initializeBig():
    global board
@@ -74,9 +77,10 @@ def initializeBig():
    else:
        currentTurn = 2
        print("Player 2 Will go first")
-   gameBig()
+   gameBig() #initiates a 5x5 game loop
 
     
+#this function displays the game board and adapts depending on the size
 def displayBoard(boardsize):
     
     print("GAME BOARD\n")
@@ -85,6 +89,7 @@ def displayBoard(boardsize):
             print(board[x][y] + "  ", end='') #Shows Board by displaying each element
         print("\n")
   
+#this function checks for the winner of a 3x3 game board
 def checkWinner():
 
     for x in range(3): #check verticals
@@ -121,7 +126,8 @@ def checkWinner():
     if board[0][2] == board[1][1] == board[2][0] == 'O':
         winner = 2
         return winner
-    
+   
+#this function checks for the winner of a 5x5 game board
 def checkWinnerBig():
 
     for x in range(5): #check verticals
@@ -159,13 +165,14 @@ def checkWinnerBig():
         winner = 2
         return winner
     
+#this function checks to see if the board is filled depending on board size
 def checkFilled(boardsize): #checks every board position to see if at least 1 is empty
     for x in range(boardsize):
         for y in range(boardsize):
             if board[x][y] == "□":
                 return False
     return True
-    
+# 3x3 game loop
 def game():
     global currentTurn
     global player1Score
@@ -220,23 +227,24 @@ def game():
             else:
                 validSpace = True
         if currentTurn ==  1:
-            board[int(row)-1][int(column)-1] = "X"
+            board[int(row)-1][int(column)-1] = "X" #sets selected board position to X
         elif currentTurn == 2:
-            board[int(row)-1][int(column)-1] = "O"
-        if currentTurn == 1:
+            board[int(row)-1][int(column)-1] = "O" #sets selected board position to O
+        if currentTurn == 1: 
             currentTurn = 2
         else:
             currentTurn= 1
             
+   # 5x5 game loop         
 def gameBig():
     global currentTurn
     global player1Score
     global player2Score
     global board
     validSpace = False
-    while isWinner == False: #Loop Game alternating players until there is a winner
+    while isWinner == False: #Loop Game in 5x5 mode alternating players until there is a winner
         validSpace = False
-        winner = checkWinnerBig()
+        winner = checkWinnerBig() #check to see if theres a winner, if there is break the loop
         if winner == 1 or winner == 2:
             isWinner == True
             displayBoard(5)
@@ -258,7 +266,7 @@ def gameBig():
             print("Player 1 Go\n")
         else:
             print("Player 2 Go\n")
-        displayBoard(5)    
+        displayBoard(5)    #displays board every game loop
         filled = checkFilled(5)
         if filled:                                          #prompts to reset after a draw
             gameOver = input("DRAW! Press 0 to restart the game, or 1 to reset everything\n")
@@ -282,10 +290,10 @@ def gameBig():
             else:
                 validSpace = True
         if currentTurn ==  1:
-            board[int(row)-1][int(column)-1] = "X"
+            board[int(row)-1][int(column)-1] = "X" #sets selected board position to X
         elif currentTurn == 2:
-            board[int(row)-1][int(column)-1] = "O"
-        if currentTurn == 1:
+            board[int(row)-1][int(column)-1] = "O" 
+        if currentTurn == 1: 
             currentTurn = 2
         else:
             currentTurn= 1
